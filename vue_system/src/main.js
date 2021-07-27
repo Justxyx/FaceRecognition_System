@@ -13,11 +13,19 @@ Vue.use(ElementUI)
 import axios from 'axios'
 // import VueAxios from 'vue-axios'
 // Vue.use(VueAxios,axios)  不知道为啥， 加这一行运行就报错
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+axios.defaults.baseURL = 'http://127.0.0.1:8081/'
 //全局挂载
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false
+
+// 配置拦截器，为所有的请求添加Authorization头信息
+axios.interceptors.request.use(config =>{
+  config.headers.token = window.sessionStorage.getItem('token')
+  console.log(window.sessionStorage.getItem('token'))
+  return config
+})
+
 
 /* eslint-disable no-new */
 new Vue({

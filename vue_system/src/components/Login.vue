@@ -82,11 +82,12 @@ export default {
         if (!valid) return; // 前端判定是否合法
         // const result =await this.$http.post("login",this.loginForm);  reslt 打印的值太多， 只取data即可
         const { data: res } = await this.$http.post("login", this.loginForm);
-        if (res.meta.status != 200) return this.$message.error("登录失败");
+        console.log(res)
+        if (res.code != 200) return this.$message.error("登录失败");
         this.$message.success("登录成功");
         // 页面token存储
         window.sessionStorage.setItem("token", res.data.token);
-        // 页面跳转
+        // // 页面跳转
         this.$router.push("/home");
       });
     },
