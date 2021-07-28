@@ -5,9 +5,12 @@
 <mapper namespace="com.xm.mapper.UserMapper">
 
     <select id="findAllUser" resultType="User">
-        SELECT * FROM users WHERE user_id = 1
+        SELECT * FROM users WHERE user_id = 2020
     </select>
 
+    <select id="findUserByPassword" resultType="User">
+        SELECT user_name,user_password,role,user_id FROM users WHERE user_id = #{id}
+    </select>
 
 
 </mapper>

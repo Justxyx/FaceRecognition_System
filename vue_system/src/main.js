@@ -22,7 +22,6 @@ Vue.config.productionTip = false
 // 配置拦截器，为所有的请求添加Authorization头信息
 axios.interceptors.request.use(config =>{
   config.headers.token = window.sessionStorage.getItem('token')
-  console.log(window.sessionStorage.getItem('token'))
   return config
 })
 

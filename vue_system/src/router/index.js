@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
   // next() 放行，  next('login') 强制跳转
 
   if (to.path === "/login") return next();
-  const token = window.sessionStorage.getItem("token");
+  const token = JSON.parse(window.sessionStorage.getItem("user")).token; 
   if (!token) return next("/login");
   next();
 });

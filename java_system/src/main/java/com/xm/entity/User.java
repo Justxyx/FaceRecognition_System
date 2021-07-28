@@ -4,33 +4,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class User {
-    private int userId;     // 对应用户id
-    private int groupId;    // 对应公司id
+    private long userId;     // 对应用户id
     private String userName;
     private String userPassword;
-    private String gender;  // 性别  0女  1 男
-    private String email;
+    private int groupId;    // 对应公司id
+    private String department;   // 对应公司部门，保留字段，不一定使用
+    private int gender;  // 性别  0女  1 男
+    private long userTel;
     private String imgPath;  //对应用户图片路径
     private String imgFeature; // 对应用户特征
-    private int role;   // 用户权限   0 1 2  依次为root groupAdmin user
+    private int role;   // 用户权限   0 1 2  依次为   user groupAdmin root
     private String token; // 存储token
-
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(int groupId) {
-        this.groupId = groupId;
-    }
 
     public String getUserName() {
         return userName;
@@ -48,20 +32,44 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public String getGender() {
+    public long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(long userId) {
+        this.userId = userId;
+    }
+
+    public int getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(int groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    public int getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(int gender) {
         this.gender = gender;
     }
 
-    public String getEmail() {
-        return email;
+    public long getUserTel() {
+        return userTel;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setUserTel(long userTel) {
+        this.userTel = userTel;
     }
 
     public String getImgPath() {
