@@ -3,6 +3,10 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import VueUploadImgs from 'vue-upload-imgs'
+
+// 将图片转为base64编码
+Vue.use(VueUploadImgs)
 
 // ElementUI配置
 import ElementUI, { Message } from 'element-ui'
@@ -16,6 +20,10 @@ import axios from 'axios'
 axios.defaults.baseURL = 'http://127.0.0.1:8081/'
 //全局挂载
 Vue.prototype.$http = axios
+
+// 引入Message，全局挂载
+// Vue.use(Message)
+Vue.prototype.$message = Message
 
 Vue.config.productionTip = false
 

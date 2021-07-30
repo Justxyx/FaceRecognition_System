@@ -10,8 +10,8 @@ public class LoginService {
     @Autowired
     UserMapper userMapper;
 
-    public User findUserByPassword(long id){
-        User user = userMapper.findUserByPassword(id);
+    public User findUserByPassword(long id,int gId){
+        User user = userMapper.findUserByPassword(id,gId);
         return user;
     }
 }

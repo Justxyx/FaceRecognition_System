@@ -15,6 +15,15 @@ public class User {
     private String imgFeature; // 对应用户特征
     private int role;   // 用户权限   0 1 2  依次为   user groupAdmin root
     private String token; // 存储token
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getUserName() {
         return userName;

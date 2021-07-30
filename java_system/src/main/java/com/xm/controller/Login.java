@@ -22,7 +22,7 @@ public class Login {
     @CrossOrigin
     @PostMapping("/login")
     public Result login(@RequestBody User user){
-        User loginUser = loginService.findUserByPassword(user.getUserId());
+        User loginUser = loginService.findUserByPassword(user.getUserId(),user.getGroupId());
         if( loginUser == null){
             result.setCode(400);
             result.setMsg("该账户不存在");

@@ -4,13 +4,14 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xm.mapper.UserMapper">
 
-    <select id="findAllUser" resultType="User">
-        SELECT * FROM users WHERE user_id = 2020
-    </select>
-
     <select id="findUserByPassword" resultType="User">
-        SELECT user_name,user_password,role,user_id FROM users WHERE user_id = #{id}
+        SELECT user_name,user_password,role,user_id,group_id FROM users${gId} WHERE user_id = #{id}
     </select>
-
-
+    <select id="getUserList" resultType="User">
+        SELECT * FROM users${gId}
+    </select>
+    <insert id="addUser" parameterType="User">
+        insert into users${user.getGroupId} (user_id,user_password,user_name,user_tel,email,department,group_id,role) values
+         (#{user.userId},#{user.userPassword},#{user.userName},#{user.userTel},#{user.email},#{user.department},#{user.groupId},#{user.role})
+    </insert>
 </mapper>
