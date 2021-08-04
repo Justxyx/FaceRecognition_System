@@ -1,7 +1,9 @@
 package com.xm.controller;
 
 import com.xm.entity.User;
+import com.xm.service.Base64Service;
 import com.xm.service.UserService;
+import com.xm.utils.JwtUtils;
 import com.xm.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,9 +22,10 @@ public class UserController {
     Result result;
 
     @CrossOrigin
-    @RequestMapping("/getUserList/{groupId}")
-    public Result getUserList(@PathVariable("groupId")String groupId){
-        List<User> userList = userService.getUserList(Integer.parseInt(groupId));
+    @RequestMapping("/getUserList")
+    public Result getUserList(){
+        int groupId = JwtUtils.tokenGroupId();
+        List<User> userList = userService.getUserList(groupId);
         result.setCode(200);
         result.setData(userList);
         return result;
@@ -33,6 +36,7 @@ public class UserController {
     public Result addUser(@RequestBody User user){
         boolean b = userService.addUser(user);
         if (b){
+            Base64Service.saveBase64Img(user.getImgBase64(),user.getGroupId(),user.getUserId());
             result.setCode(200);
             return result;
         }else {
@@ -40,7 +44,21 @@ public class UserController {
             result.setMsg("添加用户失败");
             return result;
         }
+    }
 
+    @CrossOrigin
+    @GetMapping("/deleteUserById/{userId}")
+    public Result deleteUserById(@PathVariable("userId") String userId){
+        int gId = JwtUtils.tokenGroupId();
+        boolean b = userService.deleteUserById(Integer.parseInt(userId),gId);
+        if(b){
+            result.setCode(200);
+            result.setMsg("删除成功");
+            result.setData(null);
+        }else {
+            result.setCode(400);
+        }
+        return result;
     }
 
 

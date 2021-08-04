@@ -14,7 +14,6 @@ public class UserService {
 
     public List<User> getUserList(int gId){
         List<User> userList = userMapper.getUserList(gId);
-        System.out.println(userList);
         return userList;
     }
 
@@ -30,4 +29,13 @@ public class UserService {
         return true;
     }
 
+    public boolean deleteUserById(int userId,int gId){
+        try {
+            Boolean aBoolean = userMapper.deleteUserById(userId, gId);
+        } catch (Exception e) {
+            System.out.println("删除用户失败");
+            return false;
+        }
+        return true;
+    }
 }

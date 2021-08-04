@@ -29,7 +29,7 @@ public class Login {
         }else if(loginUser.getUserPassword().equals(loginUser.getUserPassword())){
             result.setCode(200);
             result.setMsg("密码正确，登录成功");
-            String token = JwtUtils.generateToken(loginUser.getUserName(), loginUser.getRole());
+            String token = JwtUtils.generateToken(loginUser.getUserName(), loginUser.getRole(),loginUser.getGroupId());
             loginUser.setToken(token);
             result.setData(loginUser);
         }else {

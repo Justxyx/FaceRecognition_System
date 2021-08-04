@@ -24,13 +24,57 @@
         </el-table-column>
         <el-table-column prop="userName" label="姓名" width="180">
         </el-table-column>
-        <el-table-column prop="userTel" label="电话" width="180"> </el-table-column>
-        <el-table-column prop="email" label="邮箱" width="180"> </el-table-column>
-        <el-table-column prop="department" label="部门" width="180"> </el-table-column>
-      </el-table>
-    </el-card>
+        <el-table-column prop="userTel" label="电话" width="180">
+        </el-table-column>
+        <el-table-column prop="email" label="邮箱" width="180">
+        </el-table-column>
+        <el-table-column prop="department" label="部门" width="180">
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <!-- {{scope.row}} -->
+            <el-button type="primary" @click="dialogVisible = true"
+              >查看图片</el-button
+            >
+
+            <template>
+              <el-popconfirm
+                confirm-button-text="好的"
+                cancel-button-text="不用了"
+                icon="el-icon-info"
+                icon-color="red"
+                title="你确定要删除该用户吗"
+                @confirm="deleteUserById(scope.row.userId)"
+              >
+                <el-button slot="reference">删除用户</el-button>
+              </el-popconfirm>
+            </template>
+          </template></el-table-column
+        ></el-table
+      ></el-card
+    >
+    <!-- 用户照片dialog -->
+    <el-dialog title="提示" :visible.sync="dialogVisible" width="50%">
+      <span>用户照片信息</span>
+
+      <div class="demo-image__placeholder">
+        <div class="block">
+          <span class="demonstration">默认</span>
+          <el-image :src="src"></el-image>
+        </div>
+
+      </div>
+      
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false"
+          >确 定</el-button
+        >
+      </span>
+    </el-dialog>
   </div>
 </template>
+            
+
 
 <script>
 export default {
@@ -42,15 +86,33 @@ export default {
     return {
       groupId: "",
       userList: [],
+      // 显示用户照片 弹出dialog框
+      dialogVisible: false,
+      src:
+        "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
     };
   },
   methods: {
     async getUserList() {
-      // const { data: res } = await this.$http.post("login", this.loginForm);
-      console.log(this.groupId);
-      const { data: res } = await this.$http.get("getUserList/" + this.groupId);
-      console.log(res.data);
+      const { data: res } = await this.$http.get("getUserList");
       this.userList = res.data;
+    },
+    async deleteUserById(userId) {
+      const { data: res } = await this.$http.get("deleteUserById/" + userId);
+      this.getUserList();
+      if (res.code == 200) {
+        this.$message.success("删除成功");
+      } else {
+        this.$message.console.error("删除失败");
+      }
+    },
+    // 用户图片dialog
+    handleClose(done) {
+      this.$confirm("确认关闭？")
+        .then((_) => {
+          done();
+        })
+        .catch((_) => {});
     },
   },
 };

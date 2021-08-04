@@ -86,10 +86,11 @@ export default {
         if (res.code != 200) return this.$message.error("登录失败");
         this.$message.success("登录成功");
         // 页面token存储
-        // console.log(res.data)
+        // console.log(JSON.stringify(res))
         window.sessionStorage.setItem("userId",res.data.userId);
         window.sessionStorage.setItem("groupId",res.data.groupId);
         window.sessionStorage.setItem("role",res.data.role);
+        window.sessionStorage.setItem("token",res.data.token);
         window.sessionStorage.setItem("user", JSON.stringify(res.data));
         // // 页面跳转
         this.$router.push("/home");

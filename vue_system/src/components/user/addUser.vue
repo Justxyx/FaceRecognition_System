@@ -67,6 +67,7 @@ export default {
         email: "",
         department: "",
         groupId: "",
+        imgBase64: "",
       },
       addUserFormRules: {
         userId: [
@@ -116,13 +117,12 @@ export default {
           },
         ],
       },
-      proofImage:'',
     };
   },
   methods: {
     async addUser() {
       this.form.groupId = window.sessionStorage.getItem("groupId");
-      console.log(this.proofImage)    // base64转换成功
+      console.log(this.form.imgBase64); // base64转换成功
       const { data: res } = await this.$http.post("/addUser", this.form);
       if (res.code == 400) {
         // 添加用户失败
@@ -145,7 +145,7 @@ export default {
         const params = res.split(",");
         // console.log(params, "params");
         if (params.length > 0) {
-          this.proofImage = params[1];
+          this.form.imgBase64 = params[1];
         }
       });
     },

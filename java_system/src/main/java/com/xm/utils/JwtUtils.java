@@ -12,7 +12,7 @@ public class JwtUtils {
     static long time = 1000*60*60*24;   // 设置token过期时间
     static String signature = "admin";  // 盐值
 
-    public static String generateToken(String username,int role){
+    public static String generateToken(String username,int role,int groupId){
         JwtBuilder builder = Jwts.builder();
         String token = builder
                 // 设置Header
@@ -21,6 +21,7 @@ public class JwtUtils {
                 // 设置载荷Payload
                 .claim("username",username)
                 .claim("role",role)
+                .claim("groupId",groupId)
                 // 设置主题
                 .setSubject("jwt")
                 //设置过载时间
@@ -34,7 +35,7 @@ public class JwtUtils {
     }
 
 
-    public static int parserToken(String token){
+    public static int parserToken(String token,String parms){
         JwtParser jwtParser = Jwts.parser();
 
         Jws<Claims> claimsJes = null;
@@ -45,14 +46,22 @@ public class JwtUtils {
         }
 
         Claims body = claimsJes.getBody();
-        return (int) body.get("role");
+        return (int) body.get(parms);
     }
 
     public static int tokenRoles(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
                 .getRequest();
         String token = request.getHeader("token");
-        int roles = JwtUtils.parserToken(token);
+        int roles = JwtUtils.parserToken(token,"role");
         return roles;           // -1 ,0 ,1 ,2 ,  -1 为没有token
+    }
+
+    public static int tokenGroupId(){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+                .getRequest();
+        String token = request.getHeader("token");
+        int groupId = JwtUtils.parserToken(token,"groupId");
+        return groupId;
     }
 }

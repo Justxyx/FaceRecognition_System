@@ -28,6 +28,7 @@ public class MenusController {
         List<Menus> allMenus = menusService.findAllMenus();
         result.setData(allMenus);
         result.setCode(200);
+        result.setMsg("请求成功");
         return result;
     }
 }

@@ -13,9 +13,18 @@ public class User {
     private long userTel;
     private String imgPath;  //对应用户图片路径
     private String imgFeature; // 对应用户特征
+    private String imgBase64;
     private int role;   // 用户权限   0 1 2  依次为   user groupAdmin root
     private String token; // 存储token
     private String email;
+
+    public String getImgBase64() {
+        return imgBase64;
+    }
+
+    public void setImgBase64(String imgBase64) {
+        this.imgBase64 = imgBase64;
+    }
 
     public String getEmail() {
         return email;
