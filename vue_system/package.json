@@ -16,7 +16,8 @@
     "less-loader": "^5.0.0",
     "vue": "^2.5.2",
     "vue-axios": "^3.2.4",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vue-upload-imgs": "^1.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

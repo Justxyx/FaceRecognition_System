@@ -5,6 +5,7 @@ import Home from "../components/Home";
 import User from "../components/user/User"
 import addUser from '../components/user/addUser'
 import welcome from '../components/welcome'
+import CameraList from '../components/camera/CameraList'
 
 Vue.use(Router);
 
@@ -26,7 +27,8 @@ const router = new Router({
       children:[
         {path:'/welcome',component:welcome},
         {path:'/userslist',component:User},
-        {path:'/addUser',component:addUser}
+        {path:'/addUser',component:addUser},
+        {path:'/cameralist',component:CameraList}
       ]
     }
   ]

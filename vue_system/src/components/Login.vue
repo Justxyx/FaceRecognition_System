@@ -24,6 +24,16 @@
             type="Password"
           ></el-input>
         </el-form-item>
+        <!-- select选择器 -->
+        <el-select v-model="loginForm.groupId" placeholder="请选择">
+          <el-option
+            v-for="item in groupList "
+            :key="item.groupId"
+            :label="item.groupName"
+            :value="item.groupId"
+          >
+          </el-option>
+        </el-select>
         <!-- 两个按钮   -->
         <el-form-item class="btn-s">
           <el-button round @click="login">登录</el-button>
@@ -36,13 +46,17 @@
 
 <script>
 export default {
+  created() {
+    this.findAllGroups();
+  },
   data() {
     return {
+      groupList: [],
       // 这是登录表单的数据绑定对象，默认为空
       loginForm: {
-        userId: "2022",
-        userPassword: "123456",
-        groupId: 1,
+        userId: "2021",
+        userPassword: "2021",
+        groupId: "",
       },
       loginFormRules: {
         // 验证用户名是否合法
@@ -87,14 +101,19 @@ export default {
         this.$message.success("登录成功");
         // 页面token存储
         // console.log(JSON.stringify(res))
-        window.sessionStorage.setItem("userId",res.data.userId);
-        window.sessionStorage.setItem("groupId",res.data.groupId);
-        window.sessionStorage.setItem("role",res.data.role);
-        window.sessionStorage.setItem("token",res.data.token);
+        window.sessionStorage.setItem("userId", res.data.userId);
+        window.sessionStorage.setItem("groupId", res.data.groupId);
+        window.sessionStorage.setItem("role", res.data.role);
+        window.sessionStorage.setItem("token", res.data.token);
         window.sessionStorage.setItem("user", JSON.stringify(res.data));
         // // 页面跳转
         this.$router.push("/home");
       });
+    },
+    async findAllGroups() {
+      const { data: res } = await this.$http.get("findAllGroups");
+      this.groupList = res.data;
+      console.log(this.groupList)
     },
   },
 };
@@ -102,8 +121,8 @@ export default {
 
 
 <style scoped lang='less'>
-.login_box{
-    /* 盒子居中 */
+.login_box {
+  /* 盒子居中 */
   width: 450px;
   height: 300px;
   // background-color: #eee;

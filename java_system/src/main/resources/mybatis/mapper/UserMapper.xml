@@ -11,8 +11,8 @@
         SELECT * FROM users${gId}
     </select>
     <insert id="addUser" parameterType="User">
-        insert into users${user.getGroupId} (user_id,user_password,user_name,user_tel,email,department,group_id,role) values
-         (#{user.userId},#{user.userPassword},#{user.userName},#{user.userTel},#{user.email},#{user.department},#{user.groupId},#{user.role})
+        insert into users${user.getGroupId} (user_id,user_password,user_name,user_tel,email,department,group_id,role,img_path) values
+         (#{user.userId},#{user.userPassword},#{user.userName},#{user.userTel},#{user.email},#{user.department},#{user.groupId},#{user.role},#{user.imgPath})
     </insert>
     <delete id="deleteUserById" >
           DELETE FROM users${gId} WHERE user_id = #{userId}

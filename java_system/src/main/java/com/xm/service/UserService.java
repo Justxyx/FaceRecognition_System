@@ -19,6 +19,8 @@ public class UserService {
 
     public boolean addUser(User user){
         user.setUserPassword(String.valueOf(user.getUserId()));
+        Base64Service.saveBase64Img(user.getImgBase64(),user.getGroupId(),user.getUserId());
+        user.setImgPath("static\\register\\" + user.getGroupId()+"\\" + user.getUserId() + ".jpeg");
         user.setRole(0);
         try {
             Boolean aBoolean = userMapper.addUser(user);
@@ -29,7 +31,7 @@ public class UserService {
         return true;
     }
 
-    public boolean deleteUserById(int userId,int gId){
+    public boolean deleteUserById(long userId,int gId){
         try {
             Boolean aBoolean = userMapper.deleteUserById(userId, gId);
         } catch (Exception e) {

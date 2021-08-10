@@ -36,7 +36,6 @@ public class UserController {
     public Result addUser(@RequestBody User user){
         boolean b = userService.addUser(user);
         if (b){
-            Base64Service.saveBase64Img(user.getImgBase64(),user.getGroupId(),user.getUserId());
             result.setCode(200);
             return result;
         }else {
@@ -50,7 +49,7 @@ public class UserController {
     @GetMapping("/deleteUserById/{userId}")
     public Result deleteUserById(@PathVariable("userId") String userId){
         int gId = JwtUtils.tokenGroupId();
-        boolean b = userService.deleteUserById(Integer.parseInt(userId),gId);
+        boolean b = userService.deleteUserById(Long.parseLong(userId),gId);
         if(b){
             result.setCode(200);
             result.setMsg("删除成功");

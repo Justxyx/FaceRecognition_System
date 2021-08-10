@@ -1,6 +1,7 @@
 package com.xm.controller;
 
 
+import com.xm.entity.Group;
 import com.xm.entity.User;
 import com.xm.entity.UserMin;
 import com.xm.service.LoginService;
@@ -9,6 +10,8 @@ import com.xm.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @ResponseBody
@@ -40,14 +43,15 @@ public class Login {
     }
 
 
-
     @CrossOrigin
-    @GetMapping("/checkToken")
-    public int tokenDemo(){
-        int roles = JwtUtils.tokenRoles();
-        System.out.println(roles);
-        return roles;
+    @GetMapping("/findAllGroups")
+    public Result groups(){
+        List<Group> allGroups = loginService.findAllGroups();
+        result.setData(allGroups);
+        System.out.println(result);
+        return result;
     }
+
 }
 
 

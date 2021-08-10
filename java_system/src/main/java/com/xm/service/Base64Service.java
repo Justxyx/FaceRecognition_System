@@ -24,7 +24,7 @@ public class Base64Service {
         //写入保存成jpeg文件
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream("D:\\人脸识别模拟服务器\\"+ path1 + "\\"+ path2 +".jpeg");
+            fos = new FileOutputStream("D:\\project\\face_system\\FaceRecognition_System\\vue_system\\static\\register\\" +path1+"\\" +path2+".jpeg");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

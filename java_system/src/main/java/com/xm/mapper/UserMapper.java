@@ -14,5 +14,5 @@ public interface UserMapper {
     User findUserByPassword(@Param("id") long id,@Param("gId") int gId);
     List<User> getUserList(@Param("gId") int gId );
     Boolean addUser(@Param("user") User user);
-    Boolean deleteUserById (@Param("userId") int userId ,@Param("gId") int gId);
+    Boolean deleteUserById (@Param("userId") long userId ,@Param("gId") int gId);
 }

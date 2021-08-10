@@ -33,7 +33,9 @@
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- {{scope.row}} -->
-            <el-button type="primary" @click="dialogVisible = true"
+            <el-button
+              type="primary"
+              @click="shouwImg(scope.row.userId, scope.row.imgPath)"
               >查看图片</el-button
             >
 
@@ -54,17 +56,13 @@
       ></el-card
     >
     <!-- 用户照片dialog -->
-    <el-dialog title="提示" :visible.sync="dialogVisible" width="50%">
-      <span>用户照片信息</span>
-
+    <el-dialog title="照片详情" :visible.sync="dialogVisible" width="50%">
       <div class="demo-image__placeholder">
         <div class="block">
-          <span class="demonstration">默认</span>
           <el-image :src="src"></el-image>
         </div>
-
       </div>
-      
+
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="dialogVisible = false"
           >确 定</el-button
@@ -80,6 +78,7 @@
 export default {
   created() {
     this.groupId = window.sessionStorage.getItem("groupId");
+
     this.getUserList();
   },
   data() {
@@ -88,11 +87,16 @@ export default {
       userList: [],
       // 显示用户照片 弹出dialog框
       dialogVisible: false,
-      src:
-        "https://cube.elemecdn.com/6/94/4d3ea53c084bad6931a56d5158a48jpeg.jpeg",
+      src: "",
     };
   },
   methods: {
+    shouwImg(id, imgPath) {
+      // dialogVisible=true,
+      console.log(id);
+      (this.dialogVisible = true), console.log(imgPath);
+      this.src = imgPath;
+    },
     async getUserList() {
       const { data: res } = await this.$http.get("getUserList");
       this.userList = res.data;
@@ -103,7 +107,7 @@ export default {
       if (res.code == 200) {
         this.$message.success("删除成功");
       } else {
-        this.$message.console.error("删除失败");
+        this.$message.error("删除失败");
       }
     },
     // 用户图片dialog
