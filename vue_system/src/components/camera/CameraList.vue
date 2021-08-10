@@ -1,11 +1,12 @@
 <template>
-  <div>摄像头列表</div>
+<div>
+  相机列表界面
+</div>
 </template>
 
 <script>
-export default {
 
-}
+
 </script>
 
 <style scoped lang='less'>

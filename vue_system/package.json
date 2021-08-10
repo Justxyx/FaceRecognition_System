@@ -12,12 +12,16 @@
   "dependencies": {
     "axios": "^0.21.1",
     "element-ui": "^2.15.3",
+    "flv.js": "^1.6.1",
     "less": "^4.1.1",
     "less-loader": "^5.0.0",
     "vue": "^2.5.2",
     "vue-axios": "^3.2.4",
     "vue-router": "^3.0.1",
-    "vue-upload-imgs": "^1.0.3"
+    "vue-upload-imgs": "^1.0.3",
+    "vue-video-player": "^5.0.2",
+    "xgplayer": "^2.27.3",
+    "xgplayer-flv.js": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

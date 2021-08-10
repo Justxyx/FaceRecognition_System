@@ -5,6 +5,11 @@ import App from './App'
 import router from './router'
 import VueUploadImgs from 'vue-upload-imgs'
 
+
+
+
+
+
 // 将图片转为base64编码
 Vue.use(VueUploadImgs)
 

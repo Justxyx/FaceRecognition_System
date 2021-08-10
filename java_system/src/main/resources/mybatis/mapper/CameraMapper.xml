@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.CameraMapper">
+    <insert id="addCamera" parameterType="Camera">
+      INSERT into camera${camera.getGroupId} (serial_number,group_id,camera_name,camera_pwd,camera_ip,camera_location,camera_position,camera_src,camera_port) VALUES
+       (#{camera.serialNumber},#{camera.groupId},#{camera.cameraName},#{camera.cameraPwd},#{camera.cameraIp},#{camera.cameraLocation},#{camera.cameraPosition},#{camera.cameraSrc},#{camera.cameraPort})
+    </insert>
+</mapper>
