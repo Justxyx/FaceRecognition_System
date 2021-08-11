@@ -61,7 +61,12 @@ export default {
     async addCamera() {
       console.log(this.form);
       const { data: res } = await this.$http.post("/addCamera", this.form);
-      console.log(res);
+      if(res.code == 200){
+        console.log(res.code)
+        this.$message.success("添加成功")
+      }else{
+        this.$message.error("添加失败");
+      }
     },
   },
 };

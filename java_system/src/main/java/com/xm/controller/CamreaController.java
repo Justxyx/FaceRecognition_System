@@ -5,10 +5,9 @@ import com.xm.service.CameraService;
 import com.xm.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @ResponseBody
@@ -24,9 +23,45 @@ public class CamreaController {
     @PostMapping("/addCamera")
     public Result addCamera(@RequestBody Camera camera){
         boolean b = cameraService.addCamera(camera);
+        result.setData(null);
+        if(b){
+            result.setCode(200);
+            result.setMsg("添加成功");
+        }else {
+            result.setCode(400);
+            result.setMsg("添加失败");
+        }
         return result;
     }
 
 
+    @CrossOrigin
+    @GetMapping("/cameraList")
+    public Result cameraList(){
+        List<Camera> cameraList = cameraService.cameraList();
+        result.setData(cameraList);
+        if(cameraList == null){
+            result.setCode(400);
+            result.setMsg("查询失败");
+        }else{
+            result.setCode(200);
+            result.setMsg("查询成功");
+        }
+        return result;
+    }
 
+    @CrossOrigin
+    @GetMapping("/deleteCameraById/{id}")
+    public Result deleteCameraById(@PathVariable("id") String id){
+        boolean b = cameraService.deleteCameraById(id);
+        result.setData(null);
+        if (b){
+            result.setCode(200);
+            result.setMsg("删除成功");
+        }else {
+            result.setCode(400);
+            result.setMsg("删除失败");
+        }
+        return result;
+    }
 }

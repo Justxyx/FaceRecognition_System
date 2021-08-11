@@ -7,4 +7,10 @@
       INSERT into camera${camera.getGroupId} (serial_number,group_id,camera_name,camera_pwd,camera_ip,camera_location,camera_position,camera_src,camera_port) VALUES
        (#{camera.serialNumber},#{camera.groupId},#{camera.cameraName},#{camera.cameraPwd},#{camera.cameraIp},#{camera.cameraLocation},#{camera.cameraPosition},#{camera.cameraSrc},#{camera.cameraPort})
     </insert>
+    <select id="cameraList" resultType="Camera">
+        SELECT * FROM camera${gId}
+    </select>
+    <delete id="deleteCameraById">
+        DELETE FROM  camera${gId} WHERE camera_id = #{cId}
+    </delete>
 </mapper>

@@ -94,7 +94,8 @@ export default {
     shouwImg(id, imgPath) {
       // dialogVisible=true,
       console.log(id);
-      (this.dialogVisible = true), console.log(imgPath);
+      this.dialogVisible = true;
+      console.log(imgPath);
       this.src = imgPath;
     },
     async getUserList() {
