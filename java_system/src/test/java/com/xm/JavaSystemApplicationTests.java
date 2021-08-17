@@ -31,7 +31,7 @@ class JavaSystemApplicationTests {
 
 	@Test
 	public void test1(){
-		List<Group> allGroups = groupsMapper.findAllGroups();
-		System.out.println(allGroups.get(0));
+		List<Menus> menusAlone = menusService.findMenusAlone();
+		System.out.println(menusAlone);
 	}
 }

@@ -11,4 +11,8 @@
     <select id="findById" resultType="Menus">
         SELECT * FROM menus WHERE menus.id = #{id}
     </select>
+
+    <select id="findMenusAlone" resultType="Menus">
+        SELECT * FROM menus_alone
+    </select>
 </mapper>

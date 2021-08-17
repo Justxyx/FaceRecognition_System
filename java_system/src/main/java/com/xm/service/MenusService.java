@@ -34,5 +34,9 @@ public class MenusService {
 
 
 
+    public List<Menus> findMenusAlone(){
+        List<Menus> menusAlone = menusMapper.findMenusAlone();
+        return menusAlone;
+    }
 
 }

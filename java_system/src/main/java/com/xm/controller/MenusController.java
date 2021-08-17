@@ -31,4 +31,16 @@ public class MenusController {
         result.setMsg("请求成功");
         return result;
     }
+
+
+    @CrossOrigin
+    @GetMapping("/menusAlone")
+    public Result allMenusAlone(){
+        List<Menus> menusAlone = menusService.findMenusAlone();
+        result.setData(menusAlone);
+        result.setCode(200);
+        result.setMsg("请求成功");
+        return result;
+    }
+
 }

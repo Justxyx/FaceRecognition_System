@@ -12,4 +12,6 @@ import java.util.List;
 public interface MenusMapper {
     List<Menus> findAllOne();  // 查找所有的一级菜单
     Menus findById(@Param("id") int id);
-}
+
+    List<Menus> findMenusAlone();    // 单例菜单栏
+ }
