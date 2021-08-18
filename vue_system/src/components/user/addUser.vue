@@ -189,7 +189,7 @@ export default {
 
 <style scoped lang='less'>
 .box-card {
-  background-color: rgb(250, 246, 239);
+  background-color: rgb(255, 255, 255);
   margin-top: 20px;
 }
 </style>

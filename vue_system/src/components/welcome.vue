@@ -1,15 +1,23 @@
 <template>
   <div>
-    <h1>这是一个欢迎主界面，后期再美化</h1>
+    <div class="block">
+      
+      <el-image :src="src"></el-image>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      src:require('@/assets/p2.png'),
+    }
+  }
 
-}
+  
+};
 </script>
 
 <style>
-
 </style>

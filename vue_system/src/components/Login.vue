@@ -9,6 +9,7 @@
         :model="loginForm"
         :rules="loginFormRules"
       >
+  
         <!-- 账户 -->
         <el-form-item prop="userId">
           <el-input
@@ -27,7 +28,7 @@
         <!-- select选择器 -->
         <el-select v-model="loginForm.groupId" placeholder="请选择">
           <el-option
-            v-for="item in groupList "
+            v-for="item in groupList"
             :key="item.groupId"
             :label="item.groupName"
             :value="item.groupId"
@@ -113,7 +114,7 @@ export default {
     async findAllGroups() {
       const { data: res } = await this.$http.get("findAllGroups");
       this.groupList = res.data;
-      console.log(this.groupList)
+      console.log(this.groupList);
     },
   },
 };
@@ -122,15 +123,15 @@ export default {
 
 <style scoped lang='less'>
 .login_box {
-  /* 盒子居中 */
-  width: 450px;
-  height: 300px;
-  // background-color: #eee;
-  border-radius: 3px;
-  // 一下三个函数为移动盒子
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
+    // /* 盒子居中 */
+    width: 450px;
+    height: 300px;
+    // background-color: #eee;
+    border-radius: 3px;
+    // // 一下三个函数为移动盒子
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, 50%);
 }
 </style>

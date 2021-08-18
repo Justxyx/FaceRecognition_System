@@ -1,20 +1,25 @@
 <template>
   <div>
-    <!-- 面包屑导航区域 -->
-    <el-breadcrumb class="el-breadcrumb">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <el-page-header @back="goBack" content="用户管理"> </el-page-header>
 
     <!-- 卡片视图 -->
     <el-card class="box-card">
       <!-- 搜索框 -->
-      <el-row :gutter="4">
+      <el-row :gutter="4" class="search_box">
         <el-col :span="8">
           <!-- 搜索输入框 -->
           <el-input placeholder="搜索用户" class="input-with-select" clearable>
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
+        </el-col>
+
+        <el-col :span="4" :push="push"
+          ><el-button type="success" @click="addUser1" size="small"
+            >新增用户</el-button
+          >
+        </el-col>
+        <el-col :span="4" :push="push1">
+          <el-button type="info" size="small">批量导入</el-button>
         </el-col>
       </el-row>
 
@@ -36,7 +41,8 @@
             <el-button
               type="primary"
               @click="shouwImg(scope.row.userId, scope.row.imgPath)"
-              >查看图片</el-button
+              size="small"
+              >查看详情</el-button
             >
 
             <template>
@@ -48,13 +54,76 @@
                 title="你确定要删除该用户吗"
                 @confirm="deleteUserById(scope.row.userId)"
               >
-                <el-button slot="reference">删除用户</el-button>
+                <el-button slot="reference" size="small">删除用户</el-button>
               </el-popconfirm>
             </template>
           </template></el-table-column
-        ></el-table
-      ></el-card
+        >
+      </el-table>
+
+      <!-- 分页条 -->
+      <el-pagination
+        background
+        layout="prev, pager, next"
+        :total="100"
+        class="pagination"
+      >
+      </el-pagination>
+    </el-card>
+    <!-- 新增用户dialog -->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisibleForAddUser"
+      width="50%"
+      :before-close="handleClose"
     >
+      <!-- form表单 -->
+      <el-form
+        ref="addUserFormRef"
+        :model="form"
+        class="addUser_form"
+        :rules="addUserFormRules"
+        label-width="80px"
+      >
+        <el-form-item label="工号" prop="userId">
+          <el-input v-model="form.userId"></el-input>
+        </el-form-item>
+        <el-form-item label="姓名" prop="userName">
+          <el-input v-model="form.userName"></el-input>
+        </el-form-item>
+        <el-form-item label="电话" prop="userTel">
+          <el-input v-model="form.userTel"></el-input>
+        </el-form-item>
+        <el-form-item label="邮箱" prop="email">
+          <el-input v-model="form.email"></el-input>
+        </el-form-item>
+        <el-form-item label="部门" prop="department">
+          <el-input v-model="form.department"></el-input>
+        </el-form-item>
+
+        <!-- 上传图片转base64  -->
+        <el-upload
+          action=""
+          :on-change="getFile"
+          :limit="1"
+          list-type="picture"
+          :auto-upload="false"
+        >
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">点击此处上传证件照片</div>
+          <div class="el-upload__tip" slot="tip">
+            只能上传jpg/png文件，且不超过500kb
+          </div>
+        </el-upload>
+
+        <!-- 两个按钮   -->
+        <el-form-item class="btn-s">
+          <el-button round @click="addUser">添加</el-button>
+          <el-button round @click="resetAddUserForm">重置</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+
     <!-- 用户照片dialog -->
     <el-dialog title="照片详情" :visible.sync="dialogVisible" width="50%">
       <div class="demo-image__placeholder">
@@ -64,11 +133,13 @@
       </div>
 
       <span slot="footer" class="dialog-footer">
+        <el-button type="warning">修改用户信息</el-button>
         <el-button type="primary" @click="dialogVisible = false"
           >确 定</el-button
         >
       </span>
     </el-dialog>
+    -
   </div>
 </template>
             
@@ -87,7 +158,68 @@ export default {
       userList: [],
       // 显示用户照片 弹出dialog框
       dialogVisible: false,
+      dialogVisibleForAddUser: false,
       src: "",
+      push: 11,
+      push1: 9,
+      gId: "",
+      form: {
+        userId: "",
+        userName: "",
+        userTel: "",
+        email: "",
+        department: "",
+        groupId: "",
+        imgBase64: "",
+      },
+      addUserFormRules: {
+        userId: [
+          { required: true, message: "请输入工号", trigger: "blur" },
+          {
+            min: 2,
+            max: 18,
+            message: "长度在 2 到 18 个字符",
+            trigger: "blur",
+          },
+        ],
+
+        userName: [
+          { required: true, message: "请输入姓名", trigger: "blur" },
+          {
+            min: 2,
+            max: 18,
+            message: "长度在 2 到 18 个字符",
+            trigger: "blur",
+          },
+        ],
+        userTel: [
+          { required: true, message: "请输入电话", trigger: "blur" },
+          {
+            min: 2,
+            max: 18,
+            message: "长度在 2 到 18 个字符",
+            trigger: "blur",
+          },
+        ],
+        email: [
+          { required: true, message: "请输入邮箱", trigger: "blur" },
+          {
+            min: 2,
+            max: 18,
+            message: "长度在 2 到 18 个字符",
+            trigger: "blur",
+          },
+        ],
+        department: [
+          { required: true, message: "请输入部门", trigger: "blur" },
+          {
+            min: 2,
+            max: 18,
+            message: "长度在 2 到 18 个字符",
+            trigger: "blur",
+          },
+        ],
+      },
     };
   },
   methods: {
@@ -99,6 +231,7 @@ export default {
       this.src = imgPath;
     },
     async getUserList() {
+      // console.log("1111111111111111111111111")
       const { data: res } = await this.$http.get("getUserList");
       this.userList = res.data;
     },
@@ -119,6 +252,77 @@ export default {
         })
         .catch((_) => {});
     },
+    goBack() {
+      this.$router.push("/home");
+    },
+    addUser1() {
+      this.dialogVisibleForAddUser = true;
+    },
+    async addUser() {
+      this.form.groupId = window.sessionStorage.getItem("groupId");
+      console.log(this.form.imgBase64); // base64转换成功
+      const { data: res } = await this.$http.post("/addUser", this.form);
+      if (res.code == 400) {
+        // 添加用户失败
+        // 调用重置函数
+        return this.$message.error("添加用户失败");
+      }
+      if (res.code == 200) {
+        // 添加用户成功
+        // 调用重置函数
+        this.getUserList();
+        this.dialogVisibleForAddUser = false;
+        return this.$message.success("添加用户成功");
+      }
+    },
+    resetAddUserForm() {
+      this.$refs.addUserFormRef.resetFields();
+    },
+
+    // 获取文件
+    getFile(file, fileList) {
+      this.getBase64(file.raw).then((res) => {
+        const params = res.split(",");
+        // console.log(params, "params");
+        if (params.length > 0) {
+          this.form.imgBase64 = params[1];
+        }
+      });
+    },
+    // 获取图片转base64
+    getBase64(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        let imgResult = "";
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          imgResult = reader.result;
+        };
+        reader.onerror = function (error) {
+          reject(error);
+        };
+        reader.onloadend = function () {
+          resolve(imgResult);
+        };
+      });
+    },
+    // 获取图片转base64
+    getBase64(file) {
+      return new Promise(function (resolve, reject) {
+        const reader = new FileReader();
+        let imgResult = "";
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+          imgResult = reader.result;
+        };
+        reader.onerror = function (error) {
+          reject(error);
+        };
+        reader.onloadend = function () {
+          resolve(imgResult);
+        };
+      });
+    },
   },
 };
 </script>
@@ -126,6 +330,12 @@ export default {
 <style scoped lang='less'>
 .box-card {
   margin-top: 20px;
-  background-color: rgb(250, 246, 239);
+  background-color: rgb(255, 255, 255);
+}
+.search_box {
+  margin-bottom: 20px;
+}
+.pagination {
+  margin-top: 20px;
 }
 </style>
