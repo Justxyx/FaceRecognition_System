@@ -12,8 +12,8 @@ public class UserService {
     @Autowired
     UserMapper userMapper;
 
-    public List<User> getUserList(int gId){
-        List<User> userList = userMapper.getUserList(gId);
+    public List<User> getUserList(){
+        List<User> userList = userMapper.getUserList();
         return userList;
     }
 
@@ -31,9 +31,9 @@ public class UserService {
         return true;
     }
 
-    public boolean deleteUserById(long userId,int gId){
+    public boolean deleteUserById(long userId){
         try {
-            Boolean aBoolean = userMapper.deleteUserById(userId, gId);
+            Boolean aBoolean = userMapper.deleteUserById(userId);
         } catch (Exception e) {
             System.out.println("删除用户失败");
             return false;

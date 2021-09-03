@@ -17,8 +17,8 @@ public class LoginService {
     @Autowired
     GroupsMapper groupsMapper;
 
-    public User findUserByPassword(long id,int gId){
-        User user = userMapper.findUserByPassword(id,gId);
+    public User findUserByPassword(long id){
+        User user = userMapper.findUserByPassword(id);
         return user;
     }
 

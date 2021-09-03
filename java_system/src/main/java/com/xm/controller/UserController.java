@@ -24,8 +24,7 @@ public class UserController {
     @CrossOrigin
     @RequestMapping("/getUserList")
     public Result getUserList(){
-        int groupId = JwtUtils.tokenGroupId();
-        List<User> userList = userService.getUserList(groupId);
+        List<User> userList = userService.getUserList();
         result.setCode(200);
         result.setData(userList);
         return result;
@@ -48,8 +47,7 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/deleteUserById/{userId}")
     public Result deleteUserById(@PathVariable("userId") String userId){
-        int gId = JwtUtils.tokenGroupId();
-        boolean b = userService.deleteUserById(Long.parseLong(userId),gId);
+        boolean b = userService.deleteUserById(Long.parseLong(userId));
         if(b){
             result.setCode(200);
             result.setMsg("删除成功");

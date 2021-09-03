@@ -21,17 +21,22 @@
                 ><el-link type="info">查看更多</el-link></el-col
               >
             </el-row>
-            <el-row :gutter="10">
+
+
+
+
+            <el-row :gutter="10" v-for="item in cameraInfoList" v-bind:key="item.imgInfoId">
               <el-col :span="22" class="el-col2" :push="1">
                 <el-row>
-                  <el-col :span="6"><el-image :src="src1"></el-image></el-col>
+                  <el-col :span="6"><el-image :src="item.imgPath"></el-image></el-col>
                   <el-col :span="12">
-                    <p class="p1">【时间】：2021.8.18 13.21.18</p>
-                    <p class="p1">【摄像头IP】：192.168.1.2</p>
+                    
+                    <p class="p1">【时间】：{{item.infoTime}}</p>
+                    <p class="p1">【摄像头IP】：{{item.cameraIp}}</p>
 
-                    <p class="p1">【检测地点】：本科生院7楼南</p>
+                    <p class="p1">【检测地点】：{{item.cameraPosition}}</p>
                     <p class="p1">
-                      【现场照片】：<el-link class="p1">点击查看 </el-link>
+                      【姓名】：{{item.userName}} 
                     </p>
                     <p class="p1">
                       【详细情况】：<el-link class="p1">点击查看 </el-link>
@@ -40,10 +45,13 @@
                 </el-row>
               </el-col>
             </el-row>
+
+
+
             <el-row :gutter="10">
               <el-col :span="22" class="el-col2" :push="1">
                 <el-row>
-                  <el-col :span="6"><el-image :src="src1"></el-image></el-col>
+                  <el-col :span="6"><el-image :src="src1" ></el-image></el-col>
                   <el-col :span="12">
                     <p class="p1">【时间】：2021.8.18 13.21.18</p>
                     <p class="p1">【摄像头IP】：192.168.1.2</p>
@@ -93,7 +101,7 @@
               >
             </el-row>
             <el-row
-              ><div id="myChart" style="width: 450px; height: 300px"></div
+              ><div id="myChart" style="width: 100%; height: 300px"></div
             ></el-row>
           </el-col>
         </el-col>
@@ -110,7 +118,7 @@
               >
             </el-row>
             <el-row
-              ><div id="myChart2" style="width: 450px; height: 300px"></div
+              ><div id="myChart2" style="width: 100%; height: 300px"></div
             ></el-row>
           </el-col>
         </el-col>
@@ -127,7 +135,7 @@
               >
             </el-row>
             <el-row>
-              <div id="myChart3" style="width: 600px; height: 300px"></div
+              <div id="myChart3" style="width: 100%; height: 300px"></div
             ></el-row>
           </el-col>
         </el-col>
@@ -143,6 +151,7 @@ export default {
     return {
       src: require("@/assets/p2.png"),
       src1: require("@/assets/p3.png"),
+      cameraInfoList: [],
     };
   },
   created() {
@@ -153,10 +162,19 @@ export default {
       then.drawLine2();
       then.drawLine3();
     }, 500);
+    this.getAllCameraList();
   },
   methods: {
     goBack() {
       this.$router.push("/home");
+    },
+
+
+    // 查询当前所有列表
+    async getAllCameraList(){
+     const {data:res} = await this.$http.get("getAllCameraInfo");
+     this.cameraInfoList = res.data
+     console.log(this.cameraInfoList);
     },
 
     // 右侧统计图1

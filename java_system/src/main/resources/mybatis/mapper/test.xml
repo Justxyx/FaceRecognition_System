@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.TimeTestMapper">
+    <select id="find" resultType="com.xm.entity.TestTime">
+        SELECT * FROM timetest;
+    </select>
+    <insert id="add" parameterType="java.sql.Timestamp">
+        INSERT into timetest(times) VALUES (#{str});
+    </insert>
+</mapper>

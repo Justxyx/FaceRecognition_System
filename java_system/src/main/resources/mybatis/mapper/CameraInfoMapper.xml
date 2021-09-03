@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xm.mapper.CameraInfoMapper">
+    <select id="getAllCameraInfo" resultType="CameraInfo">
+SELECT * FROM camera_info AS c,img_info AS i ,users AS u ,camera AS ca
+WHERE c.`info_id` = i.`info_id` AND c.`camera_id` = ca.`camera_id` AND i.`p_id` = u.`user_id`
+ORDER BY info_time DESC;
+    </select>
+
+
+</mapper>

@@ -34,7 +34,7 @@
             :value="item.groupId"
           >
           </el-option>
-        </el-select>
+        </el-select> 
         <!-- 两个按钮   -->
         <el-form-item class="btn-s">
           <el-button round @click="login">登录</el-button>
@@ -114,7 +114,7 @@ export default {
     async findAllGroups() {
       const { data: res } = await this.$http.get("findAllGroups");
       this.groupList = res.data;
-      console.log(this.groupList);
+      // console.log(this.groupList);
     },
   },
 };

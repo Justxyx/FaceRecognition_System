@@ -31,7 +31,7 @@ public class CameraService {
         int groupId = JwtUtils.tokenGroupId();
         List<Camera> cameraList = null;
         try {
-            cameraList = cameraMapper.cameraList(groupId);
+            cameraList = cameraMapper.cameraList();
         } catch (Exception e) {
             // 后期加日志系统
             System.out.println("查询失败");
@@ -44,7 +44,7 @@ public class CameraService {
         long cid = Integer.parseInt(id);
         boolean b;
         try {
-            cameraMapper.deleteCameraById(gId, cid);
+            cameraMapper.deleteCameraById( cid);
             b = true;
         } catch (Exception e) {
             System.out.println("删除失败");

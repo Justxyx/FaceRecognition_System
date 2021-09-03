@@ -5,16 +5,16 @@
 <mapper namespace="com.xm.mapper.UserMapper">
 
     <select id="findUserByPassword" resultType="User">
-        SELECT user_name,user_password,role,user_id,group_id FROM users${gId} WHERE user_id = #{id}
+        SELECT user_name,user_password,role,user_id,group_id FROM users WHERE user_id = #{id}
     </select>
     <select id="getUserList" resultType="User">
-        SELECT * FROM users${gId}
+        SELECT * FROM users
     </select>
     <insert id="addUser" parameterType="User">
-        insert into users${user.getGroupId} (user_id,user_password,user_name,user_tel,email,department,group_id,role,img_path) values
+        insert into users (user_id,user_password,user_name,user_tel,email,department,group_id,role,img_path) values
          (#{user.userId},#{user.userPassword},#{user.userName},#{user.userTel},#{user.email},#{user.department},#{user.groupId},#{user.role},#{user.imgPath})
     </insert>
     <delete id="deleteUserById" >
-          DELETE FROM users${gId} WHERE user_id = #{userId}
+          DELETE FROM users WHERE user_id = #{userId}
     </delete>
 </mapper>
