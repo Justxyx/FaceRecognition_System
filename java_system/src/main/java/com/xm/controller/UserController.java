@@ -47,7 +47,7 @@ public class UserController {
     @CrossOrigin
     @GetMapping("/deleteUserById/{userId}")
     public Result deleteUserById(@PathVariable("userId") String userId){
-        boolean b = userService.deleteUserById(Long.parseLong(userId));
+        boolean b = userService.deleteUserById(userId);
         if(b){
             result.setCode(200);
             result.setMsg("删除成功");

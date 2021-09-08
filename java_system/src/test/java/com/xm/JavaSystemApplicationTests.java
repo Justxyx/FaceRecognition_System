@@ -2,24 +2,18 @@
 package com.xm;
 
 
-		import com.fasterxml.jackson.databind.annotation.JsonAppend;
 		import com.xm.entity.*;
 		import com.xm.mapper.CameraInfoMapper;
 		import com.xm.mapper.GroupsMapper;
 		import com.xm.mapper.TimeTestMapper;
 		import com.xm.mapper.UserMapper;
 		import com.xm.service.MenusService;
-		import org.apache.catalina.mbeans.GroupMBean;
 		import org.junit.jupiter.api.Test;
 		import org.springframework.beans.factory.annotation.Autowired;
 		import org.springframework.boot.test.context.SpringBootTest;
+		import org.springframework.web.client.RestTemplate;
 
-		import javax.sql.DataSource;
-
-		import java.sql.Timestamp;
 		import java.text.ParseException;
-		import java.text.SimpleDateFormat;
-		import java.util.Date;
 		import java.util.List;
 
 @SpringBootTest
@@ -60,5 +54,20 @@ class JavaSystemApplicationTests {
 		CameraInfo cameraInfo = allCameraInfo.get(0);
 		System.out.println(cameraInfo);
 
+	}
+
+	@Test
+	void test4(){
+		long userId	= 1;
+		String url = "http://192.168.0.101:8082/delete";
+		RestTemplate restTemplate = new RestTemplate();
+		Boolean b = restTemplate.postForObject(url,userId, Boolean.class);
+
+	}
+
+	@Test
+	void  test5(){
+		String s = "一一一一一一一一一一一一一一一一一一一一";
+		System.out.println(s.length());
 	}
 }

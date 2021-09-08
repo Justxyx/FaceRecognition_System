@@ -7,7 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class Base64Service {
-    public static boolean saveBase64Img(String base64Img,int path1,long path2){
+    public static boolean saveBase64Img(String base64Img,int path1,String path2){
         String base64 = base64Img.replace("%2F", "/");
         BASE64Decoder decoder = new BASE64Decoder();
         byte[] data = new byte[0];

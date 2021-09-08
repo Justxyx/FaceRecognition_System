@@ -11,8 +11,8 @@ import java.util.List;
 @Mapper
 @Repository
 public interface UserMapper {
-    User findUserByPassword(@Param("id") long id);
+    User findUserByPassword(@Param("id") String id);
     List<User> getUserList( );
     Boolean addUser(@Param("user") User user);
-    Boolean deleteUserById (@Param("userId") long userId);
+    Boolean deleteUserById (@Param("userId") String userId);
 }

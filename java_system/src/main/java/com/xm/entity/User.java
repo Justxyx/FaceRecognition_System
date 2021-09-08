@@ -4,7 +4,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class User {
-    private long userId;     // 对应用户id
+    private String userId;     // 对应用户id
     private String userName;
     private String userPassword;
     private int groupId;    // 对应公司id
@@ -50,11 +50,11 @@ public class User {
         this.userPassword = userPassword;
     }
 
-    public long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 

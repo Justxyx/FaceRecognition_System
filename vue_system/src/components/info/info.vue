@@ -48,43 +48,7 @@
 
 
 
-            <el-row :gutter="10">
-              <el-col :span="22" class="el-col2" :push="1">
-                <el-row>
-                  <el-col :span="6"><el-image :src="src1" ></el-image></el-col>
-                  <el-col :span="12">
-                    <p class="p1">【时间】：2021.8.18 13.21.18</p>
-                    <p class="p1">【摄像头IP】：192.168.1.2</p>
-
-                    <p class="p1">【检测地点】：本科生院7楼南</p>
-                    <p class="p1">
-                      【现场照片】：<el-link class="p1">点击查看 </el-link>
-                    </p>
-                    <p class="p1">
-                      【详细情况】：<el-link class="p1">点击查看 </el-link>
-                    </p>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
-            <el-row :gutter="10">
-              <el-col :span="22" class="el-col2" :push="1">
-                <el-row>
-                  <el-col :span="6"><el-image :src="src1"></el-image></el-col>
-                  <el-col :span="12">
-                    <p class="p1">【时间】：2021.8.18 13.21.18</p>
-                    <p class="p1">【摄像头IP】：192.168.1.2</p>
-                    <p class="p1">【检测地点】：本科生院7楼南</p>
-                    <p class="p1">
-                      【现场照片】：<el-link class="p1">点击查看 </el-link>
-                    </p>
-                    <p class="p1">
-                      【详细情况】：<el-link class="p1">点击查看 </el-link>
-                    </p>
-                  </el-col>
-                </el-row>
-              </el-col>
-            </el-row>
+ 
           </el-col>
         </el-col>
 
