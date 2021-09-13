@@ -13,6 +13,7 @@ package com.xm;
 		import org.springframework.boot.test.context.SpringBootTest;
 		import org.springframework.web.client.RestTemplate;
 
+		import javax.jws.soap.SOAPBinding;
 		import java.text.ParseException;
 		import java.util.List;
 
@@ -65,9 +66,21 @@ class JavaSystemApplicationTests {
 
 	}
 
+	@Autowired
+	User user;
+
 	@Test
 	void  test5(){
-		String s = "一一一一一一一一一一一一一一一一一一一一";
-		System.out.println(s.length());
+		user.setUserId("2021");
+		user.setUserPassword("1234");
+		Boolean aBoolean = null;
+		try {
+			aBoolean = userMapper.addUser(user);
+		} catch (Exception e) {
+			System.out.println("------------------");
+			e.printStackTrace();
+			System.out.println("------------------");
+		}
+		System.out.println(aBoolean);
 	}
 }

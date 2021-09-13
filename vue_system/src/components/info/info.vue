@@ -139,6 +139,7 @@ export default {
      const {data:res} = await this.$http.get("getAllCameraInfo");
      this.cameraInfoList = res.data
      console.log(this.cameraInfoList);
+     
     },
 
     // 右侧统计图1

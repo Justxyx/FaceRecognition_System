@@ -25,7 +25,6 @@ public class UserService {
     }
 
     public boolean addUser(User user){
-        user.setUserId(null);
         user.setUserPassword(user.getUserId());
         Base64Service.saveBase64Img(user.getImgBase64(),user.getGroupId(),user.getUserId());
         user.setImgPath("static\\register\\" + user.getGroupId()+"\\" + user.getUserId() + ".jpeg");

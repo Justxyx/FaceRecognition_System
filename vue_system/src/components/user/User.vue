@@ -231,9 +231,9 @@ export default {
       this.src = imgPath;
     },
     async getUserList() {
-      // console.log("1111111111111111111111111")
       const { data: res } = await this.$http.get("getUserList");
       this.userList = res.data;
+      console.log(this.form)
     },
     async deleteUserById(userId) {
       const { data: res } = await this.$http.get("deleteUserById/" + userId);

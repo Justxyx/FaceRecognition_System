@@ -122,9 +122,12 @@ export default {
   methods: {
     async addUser() {
       this.form.groupId = window.sessionStorage.getItem("groupId");
-      console.log(this.form.imgBase64); // base64转换成功
+      // console.log(this.form.imgBase64); // base64转换成功
+      // console.log(this.form)
+      
       const { data: res } = await this.$http.post("/addUser", this.form);
       if (res.code == 400) {
+        console.log(11111111111);
         // 添加用户失败
         // 调用重置函数
         return this.$message.error("添加用户失败");
@@ -136,6 +139,7 @@ export default {
       }
     },
     resetAddUserForm() {
+      
       this.$refs.addUserFormRef.resetFields();
     },
 
