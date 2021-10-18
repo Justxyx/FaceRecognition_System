@@ -1,46 +1,34 @@
 <template>
-  <div>
-    <div>这是一个登录界面</div>
-    <div class="login_box">
-      <!-- 输入文本框以及按钮区域 -->
-      <el-form
-        ref="loginFromRef"
-        class="login_form"
-        :model="loginForm"
-        :rules="loginFormRules"
-      >
-  
-        <!-- 账户 -->
-        <el-form-item prop="userId">
-          <el-input
-            v-model="loginForm.userId"
-            prefix-icon="iconfont icon-yidongduanicon-"
-          ></el-input>
-        </el-form-item>
-        <!-- 密码 type="userPassword" 设置为密码属性 -->
-        <el-form-item prop="userPassword">
-          <el-input
-            v-model="loginForm.userPassword"
-            prefix-icon="iconfont icon-mima"
-            type="Password"
-          ></el-input>
-        </el-form-item>
-        <!-- select选择器 -->
-        <el-select v-model="loginForm.groupId" placeholder="请选择">
-          <el-option
-            v-for="item in groupList"
-            :key="item.groupId"
-            :label="item.groupName"
-            :value="item.groupId"
-          >
-          </el-option>
-        </el-select> 
-        <!-- 两个按钮   -->
-        <el-form-item class="btn-s">
-          <el-button round @click="login">登录</el-button>
-          <el-button round @click="resetLoginForm">重置</el-button>
-        </el-form-item>
-      </el-form>
+  <div class="login-page-bg">
+    <div class="login-box-bg">
+      <div class="login-page">
+        <el-form
+          class="input-form"
+          :status-icon="true"
+          ref="loginFromRef"
+          :model="loginForm"
+          label-width="auto">
+          <el-form-item class="form-logo">
+            <img src="../assets/LoginLogo.png" class="logo" alt="Login">
+          </el-form-item>
+          <el-form-item
+            prop="userOpenId"
+            class="input-form-item"
+            :rules= "loginFormRules.userId">
+            <el-input v-model="loginForm.userOpenId" placeholder="请输入用户ID" style="height: 48px;"><i slot="prefix" class="el-icon-user" style="padding-left: 5px;"></i></el-input>
+          </el-form-item>
+          <el-form-item
+            prop="userPassword"
+            class="input-form-item"
+            :rules="loginFormRules.userPassword">
+            <el-input v-model="loginForm.userPassword" placeholder="请输入用户密码" type="password" style="height: 48px;"><i slot="prefix" class="el-icon-lock" style="padding-left: 5px;"></i></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button @click="login" type="primary" class="submit-button" style="width: 80%;">登录</el-button>
+            <el-button @click="resetLoginForm" type="primary" round>重置</el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
@@ -57,7 +45,7 @@ export default {
       loginForm: {
         userId: "2021",
         userPassword: "2021",
-        groupId: "",
+        groupId: "1",
       },
       loginFormRules: {
         // 验证用户名是否合法
@@ -122,16 +110,54 @@ export default {
 
 
 <style scoped lang='less'>
-.login_box {
-    // /* 盒子居中 */
-    width: 450px;
-    height: 300px;
-    // background-color: #eee;
-    border-radius: 3px;
-    // // 一下三个函数为移动盒子
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, 50%);
+.login-page-bg{
+  height: 100%;
+  width: 100%;
+  background-image: url('../assets/bgimg.jpg');
+  background-size:cover;
+  overflow: hidden;
+}
+.login-box-bg{
+  height: 100%;
+  width: 600px;
+  margin: 0px;
+  background: #283b54;
+  color: #2c3e50;
+  float: right;
+  opacity: 0.9;
+}
+.login-page{
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 440px;
+  width: 580px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logo{
+  width: 96%;
+  height: auto;
+  vertical-align: auto;
+}
+.input-form{
+  /* height: 60%; */
+  width: 80%;
+  margin: 2em;
+}
+.user-input{
+  width: 81%;
+  border-radius: 5px;
+}
+.submit-button{
+  /* background: #2d4461; */
+  height: 40px;
+  /* transition: .5s; */
+  border: none;
+  /* opacity: .2; */
+  color: white;
+  border-radius: 4px;
+  transition: .5s;
 }
 </style>

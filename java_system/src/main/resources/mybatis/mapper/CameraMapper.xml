@@ -8,9 +8,12 @@
        (#{camera.serialNumber},#{camera.groupId},#{camera.cameraName},#{camera.cameraPwd},#{camera.cameraIp},#{camera.cameraLocation},#{camera.cameraPosition},#{camera.cameraSrc},#{camera.cameraPort})
     </insert>
     <select id="cameraList" resultType="Camera">
-        SELECT * FROM camera
+        SELECT * FROM camera limit #{startPage},#{endPage};
     </select>
     <delete id="deleteCameraById">
         DELETE FROM  camera WHERE camera_id = #{cId}
     </delete>
+    <select id="cameraCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM camera;
+    </select>
 </mapper>

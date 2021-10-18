@@ -1,6 +1,7 @@
 package com.xm.service;
 
 import com.xm.entity.Infos;
+import com.xm.entity.PageBean;
 import com.xm.entity.User;
 import com.xm.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +18,42 @@ public class UserService {
     @Autowired
     Infos infos;
 
+    @Autowired
+    PageBean pageBean;
 
 
-    public List<User> getUserList(){
-        List<User> userList = userMapper.getUserList();
-        return userList;
+    public PageBean getUserList(String pageNo, String pageSize){
+        int count = userMapper.getCount();  // 总条数
+        pageBean.setRows(count);
+        pageBean.setPageNo(Integer.valueOf(pageNo));
+        pageBean.setPageSize(Integer.valueOf(pageSize));
+
+        int totalPage;
+        int startPage;
+        int endPage;
+        startPage = (Integer.valueOf(pageNo) - 1)*Integer.valueOf(pageSize);
+        endPage =  Integer.valueOf(pageSize);
+        if (Integer.valueOf(count)%Integer.valueOf(pageSize) == 0){
+            totalPage = Integer.valueOf(count)/Integer.valueOf(pageSize) ;
+        }else {
+            totalPage = Integer.valueOf(count)/Integer.valueOf(pageSize) + 1;
+            if (endPage == totalPage){
+                endPage = Integer.valueOf(count)%Integer.valueOf(pageSize);
+            }
+        }
+        pageBean.setTotalPage(totalPage);
+        List<User> userList = userMapper.getUserList(startPage,endPage);
+        pageBean.setLists(userList);
+        return pageBean;
     }
 
     public boolean addUser(User user){
         user.setUserPassword(user.getUserId());
         Base64Service.saveBase64Img(user.getImgBase64(),user.getGroupId(),user.getUserId());
-        user.setImgPath("static\\register\\" + user.getGroupId()+"\\" + user.getUserId() + ".jpeg");
+//        user.setImgPath("static\\register\\" + user.getGroupId()+"\\" + user.getUserId() + ".jpeg");
+        String path = "static\\register\\" + user.getGroupId()+"\\" + user.getUserId() + ".jpeg";
+        user.setImgPath(path);
+//        user.setImgPath("staticregister");
         user.setRole(0);
         try {
             Boolean aBoolean = userMapper.addUser(user);

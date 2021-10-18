@@ -22,7 +22,7 @@ Vue.use(ElementUI)
 import axios from 'axios'
 // import VueAxios from 'vue-axios'
 // Vue.use(VueAxios,axios)  不知道为啥， 加这一行运行就报错
-axios.defaults.baseURL = 'http://127.0.0.1:8081/'
+axios.defaults.baseURL = 'http://192.168.0.105:8081/'
 //全局挂载
 Vue.prototype.$http = axios
 

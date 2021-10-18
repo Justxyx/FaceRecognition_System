@@ -1,5 +1,6 @@
 package com.xm.controller;
 
+import com.xm.entity.PageBean;
 import com.xm.entity.User;
 import com.xm.service.Base64Service;
 import com.xm.service.UserService;
@@ -8,7 +9,10 @@ import com.xm.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
@@ -21,12 +25,18 @@ public class UserController {
     @Autowired
     Result result;
 
+
+
+
+
     @CrossOrigin
-    @RequestMapping("/getUserList")
-    public Result getUserList(){
-        List<User> userList = userService.getUserList();
+    @RequestMapping("/getUserList/{pageNo}/{pageSize}")
+    public Result getUserList(@PathVariable("pageNo") String pageNo,@PathVariable("pageSize") String pageSize){
+
+
+        PageBean  pageBean= userService.getUserList(pageNo,pageSize);
         result.setCode(200);
-        result.setData(userList);
+        result.setData(pageBean);
         return result;
     }
 

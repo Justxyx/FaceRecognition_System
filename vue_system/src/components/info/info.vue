@@ -22,22 +22,22 @@
               >
             </el-row>
 
-
-
-
-            <el-row :gutter="10" v-for="item in cameraInfoList" v-bind:key="item.imgInfoId">
+            <el-row
+              :gutter="10"
+              v-for="item in cameraInfoList"
+              v-bind:key="item.imgInfoId"
+            >
               <el-col :span="22" class="el-col2" :push="1">
                 <el-row>
-                  <el-col :span="6"><el-image :src="item.imgPath"></el-image></el-col>
+                  <el-col :span="6"
+                    ><el-image :src="item.imgPath"></el-image
+                  ></el-col>
                   <el-col :span="12">
-                    
-                    <p class="p1">【时间】：{{item.infoTime}}</p>
-                    <p class="p1">【摄像头IP】：{{item.cameraIp}}</p>
+                    <p class="p1">【时间】：{{ item.infoTime }}</p>
+                    <p class="p1">【摄像头IP】：{{ item.cameraIp }}</p>
 
-                    <p class="p1">【检测地点】：{{item.cameraPosition}}</p>
-                    <p class="p1">
-                      【姓名】：{{item.userName}} 
-                    </p>
+                    <p class="p1">【检测地点】：{{ item.cameraPosition }}</p>
+                    <p class="p1">【姓名】：{{ item.userName }}</p>
                     <p class="p1">
                       【详细情况】：<el-link class="p1">点击查看 </el-link>
                     </p>
@@ -46,9 +46,16 @@
               </el-col>
             </el-row>
 
-
-
- 
+            <!-- 分页条 -->
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              :page-count="parseInt(this.paging.totalPage)"
+              :current-page="parseInt(this.paging.pageNo)"
+              @current-change="handleCurrentChange"
+              class="pagination"
+            >
+            </el-pagination>
           </el-col>
         </el-col>
 
@@ -113,6 +120,13 @@ var echarts = require("echarts");
 export default {
   data() {
     return {
+      // 分页工具
+      paging: {
+        pageNo: "1", // 当前页码数（默认给1），需要传参
+        pageSize: "3", // 每页显示的行数，需要传参
+        totalPage: "", // 总页数，是根据总行数和每页显示的行数计算出来的结果
+        rows: "", //总行数，总行数是查询出来的数据表总记录数
+      },
       src: require("@/assets/p2.png"),
       src1: require("@/assets/p3.png"),
       cameraInfoList: [],
@@ -129,17 +143,25 @@ export default {
     this.getAllCameraList();
   },
   methods: {
+    // 分页工具
+    handleCurrentChange: function (currentPage) {
+      this.paging.pageNo = currentPage;
+      console.log(this.paging.pageNo); //点击第几页
+      this.getAllCameraList()
+    },
     goBack() {
       this.$router.push("/home");
     },
 
-
     // 查询当前所有列表
-    async getAllCameraList(){
-     const {data:res} = await this.$http.get("getAllCameraInfo");
-     this.cameraInfoList = res.data
-     console.log(this.cameraInfoList);
-     
+    async getAllCameraList() {
+      const { data: res } = await this.$http.get(
+        "getAllCameraInfo/" + this.paging.pageNo + "/" + this.paging.pageSize
+      );
+      this.cameraInfoList = res.data.lists;
+      console.log(this.cameraInfoList);
+      this.paging.totalPage = res.data.totalPage;
+      this.paging.rows = res.data.rows;
     },
 
     // 右侧统计图1
@@ -223,7 +245,6 @@ export default {
       myChart2.setOption({
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
-  
         tooltip: {
           trigger: "axis",
         },
@@ -303,7 +324,6 @@ export default {
       myChart3.setOption({
         /*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
 
- 
         tooltip: {
           trigger: "item",
         },

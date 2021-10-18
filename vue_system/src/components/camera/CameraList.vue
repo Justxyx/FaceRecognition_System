@@ -67,7 +67,9 @@
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="100"
+        :page-count="parseInt(this.paging.totalPage)"
+        :current-page="parseInt(this.paging.pageNo)"
+        @current-change="handleCurrentChange"
         class="pagination"
       >
       </el-pagination>
@@ -139,6 +141,13 @@ export default {
   },
   data() {
     return {
+      // 分页工具
+      paging: {
+        pageNo: "1", // 当前页码数（默认给1），需要传参
+        pageSize: "5", // 每页显示的行数，需要传参
+        totalPage: "", // 总页数，是根据总行数和每页显示的行数计算出来的结果
+        rows: "", //总行数，总行数是查询出来的数据表总记录数
+      },
       form: {
         serialNumber: "",
         cameraName: "",
@@ -157,11 +166,21 @@ export default {
     };
   },
   methods: {
+    // 分页工具
+    handleCurrentChange: function (currentPage) {
+      this.paging.pageNo = currentPage;
+      console.log(this.paging.pageNo); //点击第几页
+      this.getCameraList();
+    },
     async getCameraList() {
-      const { data: res } = await this.$http.get("cameraList");
+      const { data: res } = await this.$http.get(
+        "cameraList/" + this.paging.pageNo + "/" + this.paging.pageSize
+      );
       if (res.code == 200) {
-        this.cameraList = res.data;
-        console.log(this.cameraList);
+        console.log(res.data);
+        this.cameraList = res.data.lists;
+        this.paging.totalPage = res.data.totalPage;
+        this.paging.rows = res.data.rows;
       }
     },
     async deleteCameraById(id) {

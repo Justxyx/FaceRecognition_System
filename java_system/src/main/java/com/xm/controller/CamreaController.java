@@ -1,6 +1,7 @@
 package com.xm.controller;
 
 import com.xm.entity.Camera;
+import com.xm.entity.PageBean;
 import com.xm.service.CameraService;
 import com.xm.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,11 @@ public class CamreaController {
 
 
     @CrossOrigin
-    @GetMapping("/cameraList")
-    public Result cameraList(){
-        List<Camera> cameraList = cameraService.cameraList();
-        result.setData(cameraList);
-        if(cameraList == null){
+    @GetMapping("/cameraList/{pageNo}/{pageSize}")
+    public Result cameraList(@PathVariable("pageNo") String pageNo,@PathVariable("pageSize") String pageSize){
+        PageBean pageBean = cameraService.cameraList(pageNo, pageSize);
+        result.setData(pageBean);
+        if(pageBean.getLists() == null){
             result.setCode(400);
             result.setMsg("查询失败");
         }else{

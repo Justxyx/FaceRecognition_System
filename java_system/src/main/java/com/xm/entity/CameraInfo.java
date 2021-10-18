@@ -15,7 +15,7 @@ public class CameraInfo {
     private int cameraId;
     private Timestamp infoTime;
     private long pId;
-    private double pSocer;
+    private float pSocer;
     private String cameraIp;
     private String cameraPosition;
     private String imgPath;  // 用户注册头像照片
@@ -90,11 +90,11 @@ public class CameraInfo {
         this.pId = pId;
     }
 
-    public double getpSocer() {
+    public float getpSocer() {
         return pSocer;
     }
 
-    public void setpSocer(double pSocer) {
+    public void setpSocer(float pSocer) {
         this.pSocer = pSocer;
     }
 
